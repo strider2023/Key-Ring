@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Key Ring</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="msg_drag_lock">Hold key and drag to lock..</string>
+    <string name="msg_drag_unlock">Hold key and drag out to unlock..</string>
+
+</resources>
