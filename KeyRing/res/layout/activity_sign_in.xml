@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sign_in_footer"
+        android:background="@android:color/holo_blue_dark" />
+
+    <LinearLayout
+        android:id="@+id/sign_in_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/sign_in_username_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableLeft="@drawable/ic_username"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="@string/username"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#FF76CCE5"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/sign_in_password_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableLeft="@drawable/ic_password"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#FF76CCE5"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/sign_in_procced_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_blue_button"
+            android:fontFamily="sans-serif-light"
+            android:padding="20dp"
+            android:text="@string/sign_in"
+            android:textAllCaps="true"
+            android:textColor="@drawable/selector_blue_button_text"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/sign_in_forget_password_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/selector_dark_green_button"
+                android:fontFamily="sans-serif-light"
+                android:paddingBottom="15dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="15dp"
+                android:text="@string/forgot_password"
+                android:textColor="@drawable/selector_dark_green_button_text"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/sign_in_proceed_sign_up_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_green_button"
+                android:fontFamily="sans-serif-light"
+                android:padding="15dp"
+                android:text="@string/sign_up"
+                android:textAllCaps="true"
+                android:textColor="@drawable/selector_green_button_text"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

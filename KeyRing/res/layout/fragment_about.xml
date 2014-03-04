@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/about_content_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/black"
+        android:text="@string/lorem_ipsum"
+        android:fontFamily="sans-serif-light"/>
+    
+    <View 
+        android:layout_above="@+id/about_footer"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="5dp"/>
+    
+    <LinearLayout 
+        android:id="@+id/about_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="right">
+        
+        <TextView 
+            android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+        	android:padding="5dp"
+        	android:textSize="20sp"
+        	android:text="@string/contact_us"
+        	android:layout_weight="1"
+        	android:textColor="@android:color/holo_red_dark"
+            android:fontFamily="sans-serif-light"/>
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_mail"/>
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_google"/>
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_facebook"/>
+        
+    </LinearLayout>
+	
+</RelativeLayout>

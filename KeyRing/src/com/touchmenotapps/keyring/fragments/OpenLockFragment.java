@@ -1,9 +1,13 @@
-package com.touchmenotapps.keyring;
+package com.touchmenotapps.keyring.fragments;
+
+import com.touchmenotapps.keyring.R;
 
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +31,13 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 	private LinearLayout mLockContainer;
 	private boolean isLocked = false;
 	private static final String IMAGEVIEW_TAG = "The Android Logo";
+	private Vibrator mVibrator;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		mVibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+		
 		mViewHolder = inflater.inflate(R.layout.fragment_open_lock, null);
 		myKey = (ImageView) mViewHolder.findViewById(R.id.open_lock_key_image);
 		mStatusText = (TextView) mViewHolder.findViewById(R.id.open_lock_status_message);
@@ -55,7 +62,7 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 						view, // local data about the drag and drop operation
 						0 // no needed flags
 				);
-
+				mVibrator.vibrate(50);
 				view.setVisibility(View.INVISIBLE);
 				return false;
 			}
@@ -119,6 +126,7 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 			break;
 
 		case DragEvent.ACTION_DRAG_ENDED:
+			mVibrator.vibrate(50);
 			mLockContainer.setBackgroundResource(R.drawable.shape_lock_normal); 
 			if(isLocked) {
 				isLocked = false;

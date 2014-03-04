@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/manage_keys_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/select_key"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/options" />
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/manage_keys_header"
+        android:layout_margin="10dp"
+        android:background="@android:color/darker_gray" />
+    
+    <ToggleButton 
+        android:id="@+id/lock_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_lock_button_image"
+        android:layout_centerInParent="true"
+        android:button="@android:color/transparent"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:textOn="Unlocked"
+        android:textOff="Locked"
+        android:fontFamily="sans-serif-condensed"
+        android:focusable="false"
+        android:textSize="24sp"
+        android:textColor="#FFA4813C"
+        android:gravity="center_horizontal|bottom"
+        android:focusableInTouchMode="false"/>
+
+</RelativeLayout>
