@@ -2,6 +2,7 @@ package com.touchmenotapps.keyring.fragments;
 
 import com.touchmenotapps.keyring.R;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -32,6 +33,11 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 	private boolean isLocked = false;
 	private static final String IMAGEVIEW_TAG = "The Android Logo";
 	private Vibrator mVibrator;
+	private OnLockStateChangedListener mCallback;
+	
+	public interface OnLockStateChangedListener {
+		public void onLockToggle(String lockID, byte[] data, boolean isLocked);
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +79,19 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 		
 		return mViewHolder;
 	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnLockStateChangedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
 
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
@@ -131,9 +150,11 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 			if(isLocked) {
 				isLocked = false;
 				mStatusText.setText(R.string.msg_drag_lock);
+				mCallback.onLockToggle("default", new byte[] {0x27, 0x01, 0}, isLocked);
 			} else {
 				isLocked = true;
 				mStatusText.setText(R.string.msg_drag_unlock);
+				mCallback.onLockToggle("default", new byte[] {0x27, 0x02, 0}, isLocked);
 			}
 		default:
 			break;
