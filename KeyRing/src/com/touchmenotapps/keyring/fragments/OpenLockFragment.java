@@ -150,11 +150,11 @@ public class OpenLockFragment extends Fragment implements OnDragListener {
 			if(isLocked) {
 				isLocked = false;
 				mStatusText.setText(R.string.msg_drag_lock);
-				mCallback.onLockToggle("default", new byte[] {0x27, 0x01, 0}, isLocked);
+				mCallback.onLockToggle("default", new byte[] {0x11, 0x27, 0x01, 0x27 + 0x01, 0x22}, isLocked);
 			} else {
 				isLocked = true;
 				mStatusText.setText(R.string.msg_drag_unlock);
-				mCallback.onLockToggle("default", new byte[] {0x27, 0x02, 0}, isLocked);
+				mCallback.onLockToggle("default", new byte[] {0x11, 0x27, 0x02, 0x27 + 0x02, 0x22}, isLocked);
 			}
 		default:
 			break;

@@ -10,11 +10,9 @@ import com.touchmenotapps.keyring.fragments.OpenLockFragment.OnLockStateChangedL
 import com.touchmenotapps.keyring.fragments.SettingsFragment;
 import com.touchmenotapps.keyring.threads.OpenBluetoothPort;
 import com.touchmenotapps.keyring.threads.OpenBluetoothPort.OnBluetoothPortOpened;
-import com.touchmenotapps.keyring.threads.SendBModuleData;
 
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +21,16 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 
 public class MainActivity extends Activity 
 	implements OnBluetoothPortOpened, OnLockStateChangedListener {
 	
-	//private SlidingPaneLayout mDrawerLayout;
+	private SlidingPaneLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private AdapterMenuList mNavListAdapter;
 	private ArrayList<String> data = new ArrayList<String>();
 	private int currentListSelection = 0;
-	private BluetoothSocket mBSocket;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +39,9 @@ public class MainActivity extends Activity
 		getActionBar().setHomeButtonEnabled(true);
 		
 		mNavListAdapter = new AdapterMenuList(this);
-		//mDrawerLayout = (SlidingPaneLayout) findViewById(R.id.main_drawer_layout);
+		mDrawerLayout = (SlidingPaneLayout) findViewById(R.id.main_drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.navigation_list);
-		//mDrawerLayout.setSliderFadeColor(getResources().getColor(android.R.color.transparent));
+		mDrawerLayout.setSliderFadeColor(getResources().getColor(android.R.color.transparent));
 		mDrawerList.setAdapter(mNavListAdapter);
 		mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -63,10 +59,10 @@ public class MainActivity extends Activity
 		else {
 			mDrawerList.setItemChecked(
 					savedInstanceState.getInt("LIST_SELECTION", 0), true);
-			/*if(savedInstanceState.getBoolean("LIST_SHOWN"))
+			if(savedInstanceState.getBoolean("LIST_SHOWN"))
 				mDrawerLayout.openPane();
 			else
-				mDrawerLayout.closePane();*/
+				mDrawerLayout.closePane();
 		}
 		switchFragment(currentListSelection);
 
@@ -78,7 +74,7 @@ public class MainActivity extends Activity
 				mDrawerList.setItemChecked(pos, true);
 				switchFragment(pos);
 				currentListSelection = pos;
-				//mDrawerLayout.closePane();
+				mDrawerLayout.closePane();
 			}
 		});
 	}
@@ -89,18 +85,16 @@ public class MainActivity extends Activity
 		//Prompt to start buletooth if switched off
 		if (!BluetoothAdapter.getDefaultAdapter().isEnabled()) 
 			startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 0);
-		else
-			new OpenBluetoothPort(this).execute(new String[] {"litmus"});
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			/*if(mDrawerLayout.isOpen())
+			if(mDrawerLayout.isOpen())
 				mDrawerLayout.closePane();
 			else
-				mDrawerLayout.openPane();*/
+				mDrawerLayout.openPane();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -110,7 +104,7 @@ public class MainActivity extends Activity
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("LIST_SELECTION", currentListSelection);
-		//outState.putBoolean("LIST_SHOWN", mDrawerLayout.isOpen());
+		outState.putBoolean("LIST_SHOWN", mDrawerLayout.isOpen());
 	}
 
 	private void switchFragment(int pos) {
@@ -140,23 +134,23 @@ public class MainActivity extends Activity
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    /*if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+	    if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 	       if(!mDrawerLayout.isOpen())
 	    	   mDrawerLayout.openPane();
 	       else
 	    	   finish();
 	        return true;
-	    }*/
+	    }
 	    return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
-	public void onBluetoothConnectionSuccess(BluetoothSocket socket) {
-		mBSocket = socket;
+	public void onBluetoothCommandSent() {
+		
 	}
 
 	@Override
 	public void onLockToggle(String lockID, byte[] data, boolean isLocked) {
-		new Thread(new SendBModuleData(mBSocket, data, data.length)).start();		
+		new OpenBluetoothPort(this, this, data).execute(new String[] {"keyring"});	
 	}
 }
